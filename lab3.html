@@ -49,34 +49,15 @@ void main(void) {
 <body onload="webGLStart();">
     <canvas id="code03-canvas"style="border:none;"width="700"height="700"></canvas>
 
-    <h4> Geometry:  </h4>
-    <button  onclick="geometry(0)"> POINTS</button>
-    <button  onclick="geometry(1)"> LINEs</button>
-    <button  onclick="geometry(2)"> FACES</button>
-
-    <h4> Background:  </h4>
-    <button  onclick="BG(1,0,0)"> Red</button>
-    <button  onclick="BG(0,1,0)"> Green</button>
-    <button  onclick="BG(0,0,1)"> Blue</button>
-    <button  onclick="BG(0.5,0.5,0.5)"> Grey</button>
-    <button  onclick="BG(0,0,0)"> Black</button>
-    <button  onclick="BG(1,1,1)"> White</button>
-
-    <div>
     <h4>
     Click on the left mouse button and move the coursor to rotate
     </h4>
-    <button  onclick="redraw()"> Go Back! </button>
+    <button  onclick="redraw()"> Reset </button>
     </div>
 
- <div>
-        <h3>
-          <div id="title"> 3Dcube.html COMMENTS</div>
-        </h3>
-        <h5>
-           A simple 3D rendering of cube using gl elemenntary array. Left click mouse button and drag to rotate. 
-	  </h5> 
-  </div>
+    <div>
+      <label for="cube_size">Cube Size: </label><input type="number" id="cube_size" value="100" onchange="updateCubeSize()">
+    </div>
 
   
     

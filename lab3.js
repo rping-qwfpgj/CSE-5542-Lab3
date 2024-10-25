@@ -1,14 +1,14 @@
-//////////////////////////////////////////////////////////////////
-//
-//  An example to show you how to set up to draw a 3D cube
-//  This is the first example you will need to set up a camera, and the model, view, and projection matrices 
-//
-//  Han-Wei Shen (shen.94@osu.edu)
-//
-
 var gl;
 var shaderProgram;
 var draw_type=2; 
+var cube_size = 0.8;
+var cylinder_height = 1;
+var cylinder_slices = 8;
+var cylinder_stacks = 16;
+var cylinder_base_radius = 1;
+var cylinder_top_radius = 1;
+var cylinder_color = [0.0, 1.0, 0.0];
+
 
 //////////// Init OpenGL Context etc. ///////////////
 
@@ -49,6 +49,10 @@ var draw_type=2;
 	        0.5, -0.5,  .5
 	    
         ];
+        var vertices_length = vertices.length;
+        for (i = 0; i < vertices_length; i++ ) {
+            vertices[i] = vertices[i] * cube_size;
+        }
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
         squareVertexPositionBuffer.itemSize = 3;
         squareVertexPositionBuffer.numItems = 8;
@@ -63,14 +67,14 @@ var draw_type=2;
         squareVertexColorBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexColorBuffer);
         var colors = [
-            1.0, 0.0, 0.0,
-            0.0, 1.0, 0.0,
-            0.0, 0.0, 1.0,
-            1.0, 0.0, 0.0,
-            1.0, 0.0, 0.0,
-            0.0, 1.0, 0.0,
-            0.0, 0.0, 1.0,
-            1.0, 0.0, 0.0	    
+            0.8, 0.2, 0.1,
+            0.5, 0.3, 0.3,
+            0.4, 0.9, 0.8,
+            0.0, 0.0, 0.0,
+            1.0, 1.0, 1.0,
+            0.7, 0.5, 0.0,
+            0.7, 0.3, 1.0,
+            1.0, 0.8, 0.3	    
         ];
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
         squareVertexColorBuffer.itemSize = 3;
@@ -98,9 +102,10 @@ var draw_type=2;
     ///////////////////////////////////////////////////////////////
 
     function drawScene() {
+
         gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
+        
 	    mat4.perspective(60, 1.0, 0.1, 100, pMatrix);  // set up the projection matrix 
 
         mat4.identity(vMatrix);	
@@ -203,12 +208,6 @@ var draw_type=2;
         drawScene();
     }
 
-function BG(red, green, blue) {
-
-    gl.clearColor(red, green, blue, 1.0);
-    drawScene(); 
-
-} 
 
 function redraw() {
     Z_angle = 0; 
@@ -216,9 +215,7 @@ function redraw() {
 }
     
 
-function geometry(type) {
-
-    draw_type = type;
+function updateCubeSize() {
+    cube_size = parseInt(document.getElementById("cube_size").value);
     drawScene();
-
-} 
+}
